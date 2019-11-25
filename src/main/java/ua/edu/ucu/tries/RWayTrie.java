@@ -8,13 +8,13 @@ import java.util.Comparator;
 
 
 public class RWayTrie implements Trie {
-    Queue q;
+
     private static int R = 256;
     private Node root;
     private int n;
     private static class Node
     {
-        private Tuple val = null;//new Tuple(null, 0);
+        private Tuple val = null;
         private Node[] next = new Node[R];
     }
 
@@ -36,7 +36,7 @@ public class RWayTrie implements Trie {
     }
 
     @Override
-    public void add(Tuple t){
+    public void add(Tuple t) {
         root = put(root, t, 0);
     }
 
@@ -92,8 +92,12 @@ public class RWayTrie implements Trie {
         if (x.val != null) {
             return x;
         }
-        for (char c = 0; c < R; c++)
-            if (x.next[c] != null) return x;
+        for (char c = 0; c < R; c++) {
+            if (x.next[c] != null) {
+                return x;
+            }
+        }
+
         return null;
     }
 
@@ -104,9 +108,9 @@ public class RWayTrie implements Trie {
 
     @Override
     public Iterable<String> wordsWithPrefix(String s) {
-        Queue q = new Queue();
-        collect(get(root, s, 0), s, q);
-        Object[] objects = q.toArray();
+        Queue queue = new Queue();
+        collect(get(root, s, 0), s, queue);
+        Object[] objects = queue.toArray();
         String[] strings = Arrays.copyOf(
                 objects, objects.length, String[].class);
         Arrays.sort(strings, new Comparator<String>() {
@@ -119,17 +123,17 @@ public class RWayTrie implements Trie {
     }
 
     private void collect(Node x, String pre,
-                         Queue q)
+                         Queue queue)
     {
         if (x == null) {
             return;
         }
         if (x.val != null) {
-            q.enqueue(pre);
+            queue.enqueue(pre);
         }
 
         for (char c = 0; c < R; c++) {
-            collect(x.next[c], pre + c, q);
+            collect(x.next[c], pre + c, queue);
         }
 
     }

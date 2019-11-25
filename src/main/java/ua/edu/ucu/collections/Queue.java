@@ -1,6 +1,6 @@
 package ua.edu.ucu.collections;
 
-public class Queue{
+public class Queue {
     private ImmutableLinkedList data;
 
 
