@@ -4,7 +4,6 @@ package ua.edu.ucu.tries;
 import ua.edu.ucu.collections.Queue;
 
 import java.util.Arrays;
-import java.util.Comparator;
 
 
 public class RWayTrie implements Trie {
@@ -113,12 +112,7 @@ public class RWayTrie implements Trie {
         Object[] objects = queue.toArray();
         String[] strings = Arrays.copyOf(
                 objects, objects.length, String[].class);
-        Arrays.sort(strings, new Comparator<String>() {
-            @Override
-            public int compare(String o1, String o2) {
-                return o1.length() - o2.length();
-            }
-        });
+        Arrays.sort(strings, (o1, o2) -> o1.length() - o2.length());
         return () -> Arrays.stream(strings).iterator();
     }
 
