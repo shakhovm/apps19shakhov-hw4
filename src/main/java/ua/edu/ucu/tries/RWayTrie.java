@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 public class RWayTrie implements Trie {
 
-    private static int R = 256;
+    private static final int R = 256;
     private Node root;
     private int n;
     private static class Node
@@ -67,7 +67,9 @@ public class RWayTrie implements Trie {
 
     @Override
     public boolean delete(String word) {
-
+        if (!contains(word)) {
+            return false;
+        }
         root = delete(root, word, 0);
         return true;
     }
